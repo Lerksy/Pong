@@ -10,25 +10,25 @@ void GameManager::processEvents(SDL_Event* event) {
 		return;
 	}
 
-//distributing event proceed
-switch (state)
-{
-case MainMenu:
-	processMenuEvents(event);
-	break;
-case GameVSBot:
-	processGameEvents(event);
-	break;
-case GameVsPlayer:
-	processGameEvents(event);
-	break;
-case GameOver:
-	break;
-default:
-	break;
-}
+	//distributing event proceed
+	switch (state)
+	{
+	case MainMenu:
+		processMenuEvents(event);
+		break;
+	case GameVSBot:
+		processGameEvents(event);
+		break;
+	case GameVsPlayer:
+		processGameEvents(event);
+		break;
+	case GameOver:
+		break;
+	default:
+		break;
+	}
 
-delete event;
+	delete event;
 }
 
 void GameManager::processMenuEvents(SDL_Event* event)
@@ -102,6 +102,8 @@ void GameManager::updateObjects() {
 		leftPlayer->upScore();
 		ball->reset();
 	}
+
+	//simple bot AI (cheat mode is off :D)
 	if (state == GameState::GameVSBot) {
 		if ((botTicks++) > FPS * 2) {
 			botTicks = 0;
@@ -110,6 +112,11 @@ void GameManager::updateObjects() {
 			if (ball->getYCenter() < leftPlayer->getYCenter()) leftPlayer->moveUp();
 			else if (ball->getYCenter() > leftPlayer->getYCenter()) leftPlayer->moveDown();
 		}
+	}
+
+	//checking scores, who first got 11 points - that won!
+	if (stoi(leftPlayer->getScore()) > 10 || stoi(rightPlayer->getScore()) > 10) {
+		state = GameState::GameOver;
 	}
 
 }
@@ -159,6 +166,9 @@ void GameManager::run()
 		if (state == GameState::GameVsPlayer || state == GameState::GameVSBot) {
 			updateObjects();
 			game->renderGame();
+		}
+		if (state == GameState::GameOver) {
+			game->renderGameOver();
 		}
 		//limiting FPS
 		frameTime = SDL_GetTicks() - frameStart;

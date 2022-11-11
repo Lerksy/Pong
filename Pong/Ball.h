@@ -12,7 +12,9 @@ private:
 	float y;
 	float vx;
 	float vy;
-	float speed = 3;
+	float initSpeed;
+	float speed = initSpeed = 3;
+	const float maxSpeed = 10;
 	int mySize = 20;
 	int screenWidth;
 	int screenHeight;

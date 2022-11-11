@@ -98,6 +98,16 @@ void SDLScene::renderGame()
 	SDL_RenderPresent(renderer);
 }
 
+void SDLScene::renderGameOver()
+{
+	SDL_RenderClear(renderer);
+	SDL_RenderCopy(renderer, textures->getTexture("background"), nullptr, nullptr);
+	SDL_RenderCopy(renderer, textures->renderText(leftPlayer->getScore()), nullptr, &leftCounterZone);
+	SDL_RenderCopy(renderer, textures->renderText(rightPlayer->getScore()), nullptr, &rightCounterZone);
+	SDL_RenderCopy(renderer, textures->renderText("Game Over"), nullptr, &startVSPlayerButtonZone);
+	SDL_RenderPresent(renderer);
+}
+
 void SDLScene::clean()
 {
 	SDL_DestroyWindow(window);

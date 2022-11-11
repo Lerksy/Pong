@@ -42,6 +42,7 @@ void Ball::tick() {
 
 void Ball::reset()
 {
+	speed = initSpeed;
 	this->x = screenWidth / 2 - mySize / 2;
 	this->y = screenHeight / 2 - mySize / 2;
 	this->vx = rand() % 2 == 0 ? speed : -1 * speed;
@@ -60,6 +61,12 @@ void Ball::hitPlayer(Player* player) {
 	else if (playerSide == Player::Right) {
 		vx = -1 * speed * cos(angle);
 		x = playerCoords.x - mySize - 1;
+	}
+	if (speed + 1.0f >= maxSpeed) {
+		speed = maxSpeed;
+	}
+	else {
+		speed += 1.0f;
 	}
 
 }

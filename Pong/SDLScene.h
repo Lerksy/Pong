@@ -43,6 +43,7 @@ public:
 	SDL_Event* getEvents();
 	void renderMainMenu();
 	void renderGame();
+	void renderGameOver();
 	void clean();
 	void kill();
 
