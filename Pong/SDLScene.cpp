@@ -9,7 +9,7 @@ SDLScene::SDLScene(int width, int height, Player * leftPlayer, Player * rightPla
 }
 
 void SDLScene::init() {
-	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
+	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
 		SDL_Log("SDL Init failed %s", SDL_GetError());
 		exit(1);
@@ -28,12 +28,12 @@ void SDLScene::init() {
 	renderer = SDL_CreateRenderer(window, -1, 0);
 	if (renderer == nullptr) {
 		SDL_Log("SDL Renderer creation failed %s", SDL_GetError());
-		exit(1);
+		//exit(1);
 	}
 	//init font library
 	if (TTF_Init() != 0) {
 		SDL_Log("SDL TTF init failed %s", SDL_GetError());
-		exit(1);
+		//exit(1);
 	}
 	//setup basics
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);

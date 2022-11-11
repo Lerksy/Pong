@@ -14,6 +14,7 @@ Player::Player(int screenWidth, int screenHeight, PlayerSide myPosition) {
 	}
 	case Right: {
 		this->x = static_cast<int>(this->screenWidth * 0.975 - this->myWidth * 1.75);
+		break;
 	}
 	default: {
 		this->x = 0;

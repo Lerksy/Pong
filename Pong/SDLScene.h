@@ -3,7 +3,6 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include <stdlib.h>
-#include <iostream>
 #include <string>
 #include "Player.h"
 #include "Ball.h"

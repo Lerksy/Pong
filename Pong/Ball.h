@@ -8,8 +8,8 @@
 class Ball
 {
 private:
-	int x;
-	int y;
+	float x;
+	float y;
 	float vx;
 	float vy;
 	float initSpeed;
@@ -19,7 +19,7 @@ private:
 	int screenWidth;
 	int screenHeight;
 
-	float pongAngle(int y1, int y2, int height);
+	float pongAngle(float y1, float y2, int height);
 
 public:
 
