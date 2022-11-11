@@ -39,6 +39,9 @@ void SDLScene::init() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	active = true;
 	textures = new TextureLoader(renderer);
+
+	//setting up some texture zones
+	//reminder: start x, start y, width of block, height of block;
 	leftCounterZone = {
 		static_cast<int>(SCENE_WIDTH * 0.03),
 		static_cast<int>(SCENE_HEIGHT * 0.03),
@@ -51,6 +54,18 @@ void SDLScene::init() {
 		static_cast<int>(SCENE_WIDTH * 0.1),
 		static_cast<int>(SCENE_HEIGHT * 0.15)
 	};
+	startVSBotButtonZone = {
+		static_cast<int>(SCENE_WIDTH * 0.26),
+		static_cast<int>(SCENE_HEIGHT * 0.27),
+		static_cast<int>(SCENE_WIDTH * 0.46),
+		static_cast<int>(SCENE_HEIGHT * 0.2)
+	};
+	startVSPlayerButtonZone = {
+		static_cast<int>(SCENE_WIDTH * 0.26),
+		static_cast<int>(SCENE_HEIGHT * 0.52),
+		static_cast<int>(SCENE_WIDTH * 0.46),
+		static_cast<int>(SCENE_HEIGHT * 0.2)
+	};
 }
 
 bool SDLScene::isRunning() { return active; }
@@ -62,10 +77,18 @@ SDL_Event* SDLScene::getEvents()
 	return event;
 }
 
-void SDLScene::render()
+void SDLScene::renderMainMenu()
 {
 	SDL_RenderClear(renderer);
-	//push objects to renderer
+	SDL_RenderCopy(renderer, textures->getTexture("background"), nullptr, nullptr);
+	SDL_RenderCopy(renderer, textures->getTexture("startbotbutton"), nullptr, &startVSBotButtonZone);
+	SDL_RenderCopy(renderer, textures->getTexture("startplayerbutton"), nullptr, &startVSPlayerButtonZone);
+	SDL_RenderPresent(renderer);
+}
+
+void SDLScene::renderGame()
+{
+	SDL_RenderClear(renderer);
 	SDL_RenderCopy(renderer, textures->getTexture("background"), nullptr, nullptr);
 	SDL_RenderCopy(renderer, textures->renderText(leftPlayer->getScore()), nullptr, &leftCounterZone);
 	SDL_RenderCopy(renderer, textures->renderText(rightPlayer->getScore()), nullptr, &rightCounterZone);
@@ -85,3 +108,9 @@ void SDLScene::clean()
 void SDLScene::kill() {
 	active = false;
 }
+
+//some getters for our Parent
+
+SDL_Rect SDLScene::getStartVsBotButtonRect() { return startVSBotButtonZone; }
+
+SDL_Rect SDLScene::getStartVsPlayerButtonRect() { return startVSPlayerButtonZone; }

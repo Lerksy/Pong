@@ -63,3 +63,7 @@ void Ball::hitPlayer(Player* player) {
 	}
 
 }
+
+int Ball::getYCenter() {
+	return y + (mySize/2);
+}

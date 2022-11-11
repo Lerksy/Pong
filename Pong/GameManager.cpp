@@ -4,12 +4,57 @@
 //game methods
 
 void GameManager::processEvents(SDL_Event* event) {
+
+	if (event->type == SDL_QUIT || event->key.keysym.sym == SDLK_ESCAPE) {
+		game->kill();
+		return;
+	}
+
+//distributing event proceed
+switch (state)
+{
+case MainMenu:
+	processMenuEvents(event);
+	break;
+case GameVSBot:
+	processGameEvents(event);
+	break;
+case GameVsPlayer:
+	processGameEvents(event);
+	break;
+case GameOver:
+	break;
+default:
+	break;
+}
+
+delete event;
+}
+
+void GameManager::processMenuEvents(SDL_Event* event)
+{
 	switch (event->type)
 	{
-	case SDL_QUIT: {
-		game->kill();
+	case SDL_MOUSEBUTTONDOWN: {
+		SDL_MouseButtonEvent mouseClick = event->button;
+		if (mouseClick.button != SDL_BUTTON_LEFT) break;
+		if (checkIsMouseClickedOnButton(mouseClick.x, mouseClick.y, game->getStartVsBotButtonRect())) {
+			state = GameState::GameVSBot;
+		}
+		else if (checkIsMouseClickedOnButton(mouseClick.x, mouseClick.y, game->getStartVsPlayerButtonRect())) {
+			state = GameState::GameVsPlayer;
+		}
 		break;
 	}
+	default:
+		break;
+	}
+}
+
+void GameManager::processGameEvents(SDL_Event* event)
+{
+	switch (event->type)
+	{
 	case SDL_KEYDOWN: {
 		SDL_Keysym keyPressed = event->key.keysym;
 		switch (keyPressed.scancode) {
@@ -22,11 +67,11 @@ void GameManager::processEvents(SDL_Event* event) {
 			break;
 		}
 		case 26: {
-			leftPlayer->moveUp();
+			if (state == GameState::GameVsPlayer) leftPlayer->moveUp();
 			break;
 		}
 		case 22: {
-			leftPlayer->moveDown();
+			if (state == GameState::GameVsPlayer) leftPlayer->moveDown();
 			break;
 		}
 		}
@@ -35,7 +80,6 @@ void GameManager::processEvents(SDL_Event* event) {
 	default:
 		break;
 	}
-	delete event;
 }
 
 void GameManager::updateObjects() {
@@ -58,8 +102,28 @@ void GameManager::updateObjects() {
 		leftPlayer->upScore();
 		ball->reset();
 	}
+	if (state == GameState::GameVSBot) {
+		if ((botTicks++) > FPS * 2) {
+			botTicks = 0;
+			int bc = ball->getYCenter();
+			int pc = leftPlayer->getYCenter();
+			if (ball->getYCenter() < leftPlayer->getYCenter()) leftPlayer->moveUp();
+			else if (ball->getYCenter() > leftPlayer->getYCenter()) leftPlayer->moveDown();
+		}
+	}
 
+}
 
+//service methods
+
+bool GameManager::checkIsMouseClickedOnButton(int mouseX, int mouseY, SDL_Rect btnZone) {
+	if (mouseX >= btnZone.x &&
+		mouseX <= (btnZone.x + btnZone.w) &&
+		mouseY >= btnZone.y &&
+		mouseY <= (btnZone.y + btnZone.h)) {
+		return true;
+	}
+	return false;
 }
 
 GameManager::GameManager(int width, int height, int FPS) {
@@ -87,9 +151,16 @@ void GameManager::run()
 		frameStart = SDL_GetTicks();
 
 		processEvents(game->getEvents());
-		updateObjects();
-		game->render();
 
+		if (state == GameState::MainMenu) {
+			game->renderMainMenu();
+		}
+
+		if (state == GameState::GameVsPlayer || state == GameState::GameVSBot) {
+			updateObjects();
+			game->renderGame();
+		}
+		//limiting FPS
 		frameTime = SDL_GetTicks() - frameStart;
 		if (frameDelay > frameTime) {
 			SDL_Delay(frameDelay - frameTime);

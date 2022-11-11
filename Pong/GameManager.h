@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "SDLScene.h"
 #include "Ball.h"
+#include "GameState.h"
 
 class GameManager
 {
@@ -23,10 +24,17 @@ class GameManager
 	int height;
 	int width;
 	int FPS;
+	GameState state = MainMenu;
+	int botTicks = 0;
 
 	//game methods
 	void processEvents(SDL_Event* event);
+	void processMenuEvents(SDL_Event* event);
+	void processGameEvents(SDL_Event* event);
 	void updateObjects();
+
+	//service methods
+	bool checkIsMouseClickedOnButton(int mouseX, int mouseY, SDL_Rect btnZone);
 
 
 public:
