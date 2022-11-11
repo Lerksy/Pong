@@ -55,7 +55,7 @@ void Ball::hitPlayer(Player* player) {
 	vy = (vy > 0 ? -1 : 1) * speed * sin(angle);
 	Player::PlayerSide playerSide = player->getSide();
 	if (playerSide == Player::Left) {
-		vx =speed * cos(angle);
+		vx = speed * cos(angle);
 		x = playerCoords.x + playerCoords.w + 1;
 	}
 	else if (playerSide == Player::Right) {
@@ -72,5 +72,5 @@ void Ball::hitPlayer(Player* player) {
 }
 
 int Ball::getYCenter() {
-	return y + (mySize/2);
+	return y + (mySize / 2);
 }

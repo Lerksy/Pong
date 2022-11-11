@@ -36,7 +36,7 @@ class SDLScene
 	Ball* ball = nullptr;
 
 public:
-	SDLScene(int width, int height, Player * leftPlayer, Player * rightPlayer, Ball* ball);
+	SDLScene(int width, int height, Player* leftPlayer, Player* rightPlayer, Ball* ball);
 	void init();
 	bool isRunning();
 	SDL_Event* getEvents();

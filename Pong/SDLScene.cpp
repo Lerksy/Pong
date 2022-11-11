@@ -1,6 +1,6 @@
 #include "SDLScene.h"
 
-SDLScene::SDLScene(int width, int height, Player * leftPlayer, Player * rightPlayer, Ball* ball) {
+SDLScene::SDLScene(int width, int height, Player* leftPlayer, Player* rightPlayer, Ball* ball) {
 	this->SCENE_WIDTH = width;
 	this->SCENE_HEIGHT = height;
 	this->leftPlayer = leftPlayer;
@@ -72,7 +72,7 @@ bool SDLScene::isRunning() { return active; }
 
 SDL_Event* SDLScene::getEvents()
 {
-	SDL_Event *event = new SDL_Event;
+	SDL_Event* event = new SDL_Event;
 	SDL_PollEvent(event);
 	return event;
 }

@@ -62,6 +62,6 @@ Player::PlayerSide Player::getSide() {
 	return mySide;
 }
 
-int Player::getYCenter(){
-	return y+(myHeight/2);
+int Player::getYCenter() {
+	return y + (myHeight / 2);
 }

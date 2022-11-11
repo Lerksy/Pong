@@ -41,10 +41,16 @@ SDL_Texture* TextureLoader::getTexture(std::string name) {
 }
 
 SDL_Texture* TextureLoader::renderText(std::string text) {
-	SDL_Color color = { 0, 255, 0 };
-	SDL_Surface* tempSurface = TTF_RenderText_Blended(font, text.c_str(), color);
+	auto textTexturesIterator = text_textures.find(text);
+
+	if (textTexturesIterator != text_textures.end()) {
+		return textTexturesIterator->second;
+	}
+
+	SDL_Surface* tempSurface = TTF_RenderText_Blended(font, text.c_str(), textColor);
 	SDL_Texture* ret = SDL_CreateTextureFromSurface(renderer, tempSurface);
 	SDL_FreeSurface(tempSurface);
+	text_textures.insert(std::make_pair(text, ret));
 	return ret;
 }
 

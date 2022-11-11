@@ -105,7 +105,7 @@ void GameManager::updateObjects() {
 
 	//simple bot AI (cheat mode is off :D)
 	if (state == GameState::GameVSBot) {
-		if ((botTicks++) > FPS * 2) {
+		if ((botTicks++) > FPS) {
 			botTicks = 0;
 			int bc = ball->getYCenter();
 			int pc = leftPlayer->getYCenter();

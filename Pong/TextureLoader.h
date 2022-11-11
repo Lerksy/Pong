@@ -14,8 +14,12 @@ class TextureLoader
 {
 private:
 	std::map<std::string, SDL_Texture*> textures;
+	std::map<std::string, SDL_Texture*> text_textures;
+
+	//SDL stuff
 	SDL_Renderer* renderer = nullptr;
 	TTF_Font* font = nullptr;
+	SDL_Color textColor = { 0, 255, 0 };
 
 	void initAssetFolder();
 	void initFont();
@@ -32,6 +36,6 @@ public:
 	TextureLoader(TextureLoader&) = delete;
 	TextureLoader(TextureLoader&&) = delete;
 	~TextureLoader();
-	
+
 };
 

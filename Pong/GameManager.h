@@ -8,13 +8,13 @@
 class GameManager
 {
 	//Field Objects
-	Player *leftPlayer;
+	Player* leftPlayer;
 	Player* rightPlayer;
 	Ball* ball;
 
 	//Scene
 	SDLScene* game = nullptr;
-	
+
 	//Deadzone hitboxes
 	SDL_Rect leftDeadzone;
 	SDL_Rect rightDeadzone;
