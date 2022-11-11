@@ -51,6 +51,6 @@ SDL_Texture* TextureLoader::renderText(std::string text) {
 TextureLoader::~TextureLoader()
 {
 	for (auto row : textures) {
-		delete row.second;
+		SDL_DestroyTexture(row.second);
 	}
 }

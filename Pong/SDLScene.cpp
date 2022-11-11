@@ -32,7 +32,7 @@ void SDLScene::init() {
 	}
 	//init font library
 	if (TTF_Init() != 0) {
-		SDL_Log("SDL TTF init failed %s", SDL_GetError);
+		SDL_Log("SDL TTF init failed %s", SDL_GetError());
 		exit(1);
 	}
 	//setup basics

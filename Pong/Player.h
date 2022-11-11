@@ -14,8 +14,8 @@ public:
 
 private:
 	int score = 0;
-	float x;
-	float y;
+	int x;
+	int y;
 	float speed;
 	int screenHeight;
 	int screenWidth;

@@ -5,15 +5,18 @@ Player::Player(int screenWidth, int screenHeight, PlayerSide myPosition) {
 	this->screenHeight = screenHeight;
 	this->screenWidth = screenWidth;
 	this->mySide = myPosition;
-	this->y = (this->screenHeight / 2.) - (myHeight / 2.);
+	this->y = (this->screenHeight / 2) - (myHeight / 2);
 	//init my coords
 	switch (this->mySide) {
 	case Left: {
-		this->x = this->screenWidth * 0.025 + this->myWidth * 0.75;
+		this->x = static_cast<int>(this->screenWidth * 0.025 + this->myWidth * 0.75);
 		break;
 	}
 	case Right: {
-		this->x = this->screenWidth * 0.975 - this->myWidth * 1.75;
+		this->x = static_cast<int>(this->screenWidth * 0.975 - this->myWidth * 1.75);
+	}
+	default: {
+		this->x = 0;
 	}
 	}
 
@@ -34,19 +37,19 @@ std::string Player::getScore() {
 
 void Player::moveUp() {
 	if (screenHeight * 0.025 + speed > y) {
-		y = screenHeight * 0.025;
+		y = static_cast<int>(screenHeight * 0.025);
 	}
 	else {
-		y -= speed;
+		y -= static_cast<int>(speed);
 	}
 }
 
 void Player::moveDown() {
 	if ((screenHeight * 0.975 - myHeight) - speed < y) {
-		y = screenHeight * 0.975 - myHeight;
+		y = static_cast<int>(screenHeight * 0.975 - myHeight);
 	}
 	else {
-		y += speed;
+		y += static_cast<int>(speed);
 	}
 }
 
@@ -58,7 +61,6 @@ Player::PlayerSide Player::getSide() {
 	return mySide;
 }
 
-int Player::getYCenter()
-{
+int Player::getYCenter(){
 	return y+(myHeight/2);
 }
