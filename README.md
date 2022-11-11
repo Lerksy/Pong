@@ -29,3 +29,7 @@ After building you need add some `.dll` files from the `_include_libs` folder.
 
 **WARNING**
 *This project uses C++17 standart. Be careful if you are using old Visual Studio!*
+
+## Controls
+
+Use arrow up and arrow down for moving right platform and `w`, `s` for control left platform.
