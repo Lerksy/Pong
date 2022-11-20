@@ -14,20 +14,21 @@ public:
 
 private:
 	int score = 0;
-	int x;
-	int y;
+	/*int x;
+	int y;*/
 	float speed;
 	int screenHeight;
-	int screenWidth;
+	int screenWidth;/*
 	int myHeight = 80;
-	int myWidth = 16;
+	int myWidth = 16;*/
+	SDL_Rect myRect;
 	PlayerSide mySide;
 
 
 public:
 
 	Player(int screenWidth, int screenHeight, PlayerSide myPosition);
-	SDL_Rect getDestRect();
+	const SDL_Rect* getDestRect();
 	std::string getScore();
 	void moveUp();
 	void moveDown();

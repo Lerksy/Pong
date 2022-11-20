@@ -18,13 +18,14 @@ private:
 	int mySize = 20;
 	int screenWidth;
 	int screenHeight;
+	SDL_Rect myRect;
 
 	float pongAngle(float y1, float y2, int height);
 
 public:
 
 	Ball(int screenWidth, int screenHeight);
-	SDL_Rect getDestRect();
+	const SDL_Rect* getDestRect();
 	void tick();
 	void reset();
 	void hitPlayer(Player* player);

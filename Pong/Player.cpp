@@ -5,31 +5,28 @@ Player::Player(int screenWidth, int screenHeight, PlayerSide myPosition) {
 	this->screenHeight = screenHeight;
 	this->screenWidth = screenWidth;
 	this->mySide = myPosition;
-	this->y = (this->screenHeight / 2) - (myHeight / 2);
+	myRect.h = 80;
+	myRect.w = 16;
+	myRect.y = (screenHeight / 2) - (myRect.h / 2);
 	//init my coords
 	switch (this->mySide) {
 	case Left: {
-		this->x = static_cast<int>(this->screenWidth * 0.025 + this->myWidth * 0.75);
+		myRect.x = static_cast<int>(this->screenWidth * 0.025 + myRect.w * 0.75);
 		break;
 	}
 	case Right: {
-		this->x = static_cast<int>(this->screenWidth * 0.975 - this->myWidth * 1.75);
+		myRect.x = static_cast<int>(this->screenWidth * 0.975 - myRect.w * 1.75);
 		break;
 	}
 	default: {
-		this->x = 0;
+		myRect.x = 0;
 	}
 	}
 
 }
 
-SDL_Rect Player::getDestRect() {
-	SDL_Rect ret;
-	ret.h = myHeight;
-	ret.w = myWidth;
-	ret.x = static_cast<int>(this->x);
-	ret.y = static_cast<int>(this->y);
-	return ret;
+const SDL_Rect* Player::getDestRect() {
+	return &myRect;
 }
 
 std::string Player::getScore() {
@@ -37,20 +34,20 @@ std::string Player::getScore() {
 }
 
 void Player::moveUp() {
-	if (screenHeight * 0.025 + speed > y) {
-		y = static_cast<int>(screenHeight * 0.025);
+	if (screenHeight * 0.025 + speed > myRect.y) {
+		myRect.y = static_cast<int>(screenHeight * 0.025);
 	}
 	else {
-		y -= static_cast<int>(speed);
+		myRect.y -= static_cast<int>(speed);
 	}
 }
 
 void Player::moveDown() {
-	if ((screenHeight * 0.975 - myHeight) - speed < y) {
-		y = static_cast<int>(screenHeight * 0.975 - myHeight);
+	if ((screenHeight * 0.975 - myRect.h) - speed < myRect.y) {
+		myRect.y = static_cast<int>(screenHeight * 0.975 - myRect.h);
 	}
 	else {
-		y += static_cast<int>(speed);
+		myRect.y += static_cast<int>(speed);
 	}
 }
 
@@ -63,5 +60,5 @@ Player::PlayerSide Player::getSide() {
 }
 
 int Player::getYCenter() {
-	return y + (myHeight / 2);
+	return myRect.y + (myRect.h / 2);
 }

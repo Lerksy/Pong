@@ -7,21 +7,18 @@ float Ball::pongAngle(float y1, float y2, int height) {
 
 Ball::Ball(int screenWidth, int screenHeight) {
 	srand(time(0));
-	this->x = screenWidth / 2 - mySize / 2;
-	this->y = screenHeight / 2 - mySize / 2;
 	this->screenWidth = screenWidth;
 	this->screenHeight = screenHeight;
-	this->vx = rand() % 2 == 0 ? speed : -1 * speed;
-	this->vy = -0.5f;
+	//reseting the ball position to default
+	reset();
 }
 
-SDL_Rect Ball::getDestRect() {
-	SDL_Rect ret;
-	ret.h = mySize;
-	ret.w = mySize;
-	ret.x = this->x;
-	ret.y = this->y;
-	return ret;
+const SDL_Rect* Ball::getDestRect() {
+	myRect.h = mySize;
+	myRect.w = mySize;
+	myRect.x = x;
+	myRect.y = y;
+	return &myRect;
 }
 
 void Ball::tick() {
@@ -50,7 +47,7 @@ void Ball::reset()
 }
 
 void Ball::hitPlayer(Player* player) {
-	SDL_Rect playerCoords = player->getDestRect();
+	SDL_Rect playerCoords = *(player->getDestRect());
 	float angle = pongAngle(playerCoords.y, y, playerCoords.h);
 	vy = (vy > 0 ? -1 : 1) * speed * sin(angle);
 	Player::PlayerSide playerSide = player->getSide();

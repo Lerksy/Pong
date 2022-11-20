@@ -74,6 +74,8 @@ void GameManager::processGameEvents(SDL_Event* event)
 			if (state == GameState::GameVsPlayer) leftPlayer->moveDown();
 			break;
 		}
+		default:
+			break;
 		}
 		break;
 	}
@@ -86,19 +88,19 @@ void GameManager::updateObjects() {
 	ball->tick();
 
 	//checking hits with players
-	if (SDL_HasIntersection(&ball->getDestRect(), &leftPlayer->getDestRect())) {
+	if (SDL_HasIntersection(ball->getDestRect(), leftPlayer->getDestRect())) {
 		ball->hitPlayer(leftPlayer);
 	}
-	else if (SDL_HasIntersection(&ball->getDestRect(), &rightPlayer->getDestRect())) {
+	else if (SDL_HasIntersection(ball->getDestRect(), rightPlayer->getDestRect())) {
 		ball->hitPlayer(rightPlayer);
 	}
 
 	//checking hits with deadzones
-	if (SDL_HasIntersection(&ball->getDestRect(), &leftDeadzone)) {
+	if (SDL_HasIntersection(ball->getDestRect(), &leftDeadzone)) {
 		rightPlayer->upScore();
 		ball->reset();
 	}
-	else if (SDL_HasIntersection(&ball->getDestRect(), &rightDeadzone)) {
+	else if (SDL_HasIntersection(ball->getDestRect(), &rightDeadzone)) {
 		leftPlayer->upScore();
 		ball->reset();
 	}
@@ -107,8 +109,6 @@ void GameManager::updateObjects() {
 	if (state == GameState::GameVSBot) {
 		if ((botTicks++) > FPS) {
 			botTicks = 0;
-			int bc = ball->getYCenter();
-			int pc = leftPlayer->getYCenter();
 			if (ball->getYCenter() < leftPlayer->getYCenter()) leftPlayer->moveUp();
 			else if (ball->getYCenter() > leftPlayer->getYCenter()) leftPlayer->moveDown();
 		}

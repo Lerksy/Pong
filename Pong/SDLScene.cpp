@@ -92,9 +92,9 @@ void SDLScene::renderGame()
 	SDL_RenderCopy(renderer, textures->getTexture("background"), nullptr, nullptr);
 	SDL_RenderCopy(renderer, textures->renderText(leftPlayer->getScore()), nullptr, &leftCounterZone);
 	SDL_RenderCopy(renderer, textures->renderText(rightPlayer->getScore()), nullptr, &rightCounterZone);
-	SDL_RenderCopy(renderer, textures->getTexture("platform"), nullptr, &leftPlayer->getDestRect());
-	SDL_RenderCopy(renderer, textures->getTexture("platform"), nullptr, &rightPlayer->getDestRect());
-	SDL_RenderCopy(renderer, textures->getTexture("ball"), nullptr, &ball->getDestRect());
+	SDL_RenderCopy(renderer, textures->getTexture("platform"), nullptr, leftPlayer->getDestRect());
+	SDL_RenderCopy(renderer, textures->getTexture("platform"), nullptr, rightPlayer->getDestRect());
+	SDL_RenderCopy(renderer, textures->getTexture("ball"), nullptr, ball->getDestRect());
 	SDL_RenderPresent(renderer);
 }
 
