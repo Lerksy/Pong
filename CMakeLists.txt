@@ -6,8 +6,6 @@ set(CMAKE_INCLUDE_CURRENT_DIR OFF)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(PROJECT_SOURCE_DIR ${PROJECT_SOURCE_DIR}/Pong)
-
 set(INC_PATH ${PROJECT_SOURCE_DIR}/_include_libs)
 
 set(SDL2_DIR ${INC_PATH}/SDL2-2.24.2)
@@ -16,18 +14,13 @@ set(SDL2_image_DIR ${INC_PATH}/SDL2_image-2.6.2)
 
 
 add_executable(Pong
-	${PROJECT_SOURCE_DIR}/main.cpp
-	${PROJECT_SOURCE_DIR}/Ball.h
-	${PROJECT_SOURCE_DIR}/Ball.cpp
-	${PROJECT_SOURCE_DIR}/GameManager.h
-	${PROJECT_SOURCE_DIR}/GameManager.cpp
-	${PROJECT_SOURCE_DIR}/GameState.h
-	${PROJECT_SOURCE_DIR}/Player.h
-	${PROJECT_SOURCE_DIR}/Player.cpp
-	${PROJECT_SOURCE_DIR}/SDLScene.h
-	${PROJECT_SOURCE_DIR}/SDLScene.cpp
-	${PROJECT_SOURCE_DIR}/TextureLoader.h
-	${PROJECT_SOURCE_DIR}/TextureLoader.cpp
+        main.cpp
+	Ball.h Ball.cpp
+	GameManager.h GameManager.cpp
+	GameState.h
+	Player.h Player.cpp
+	SDLScene.h SDLScene.cpp
+	TextureLoader.h TextureLoader.cpp
 )
 
 if (${CMAKE_SIZEOF_VOID_P} MATCHES 8)
